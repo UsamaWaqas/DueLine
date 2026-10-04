@@ -113,6 +113,30 @@ Two different "import a subscription" flows, deliberately built with different t
 
 Both are heuristics tuned for "good enough to prefill a form the user still reviews," not guaranteed-correct parsing — the UI treats every result as a draft, never an automatic import.
 
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant App as SmartFeaturesScreen
+    participant API as POST /api/receipts/scan
+    participant OCR as tesseract.js
+    participant Form as AddEditScreen
+
+    U->>App: take a photo of a receipt
+    App->>App: check isPremium, else route to /premium
+    App->>API: multipart upload (JWT required)
+    alt not signed in
+        API-->>App: 401
+        App-->>U: "Log in to use the receipt scanner" → /account
+    else signed in
+        API->>OCR: recognize(image)
+        OCR-->>API: raw text
+        API->>API: regex price + first-line merchant (ocrParse.js)
+        API-->>App: { merchant, price, rawText }
+        App->>Form: push with prefilled name + price
+        Form-->>U: review and save
+    end
+```
+
 ## Free vs. Premium
 
 | | Free | Premium |
