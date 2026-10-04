@@ -1,4 +1,67 @@
 {
-  "name": "Dueline",
-  "displayName": "Dueline"
+  "expo": {
+    "name": "Dueline",
+    "slug": "dueline",
+    "scheme": "dueline",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "icon": "./src/assets/icon.png",
+    "ios": {
+      "bundleIdentifier": "com.dueline.app",
+      "supportsTablet": false
+    },
+    "android": {
+      "package": "com.dueline.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#E8ECF2"
+      },
+      "permissions": [
+        "POST_NOTIFICATIONS",
+        "SCHEDULE_EXACT_ALARM",
+        "USE_EXACT_ALARM",
+        "RECEIVE_BOOT_COMPLETED"
+      ]
+    },
+    "plugins": [
+      "expo-router",
+      "expo-status-bar",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./src/assets/splash-icon.png",
+          "imageWidth": 160,
+          "resizeMode": "contain",
+          "backgroundColor": "#E8ECF2",
+          "dark": {
+            "backgroundColor": "#1B1F27"
+          }
+        }
+      ],
+      "expo-secure-store",
+      "expo-notifications",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Dueline uses your photo library to scan a subscription receipt.",
+          "cameraPermission": "Dueline uses your camera to scan a subscription receipt."
+        }
+      ],
+      [
+        "expo-dynamic-app-icon",
+        {
+          "ocean": {
+            "image": "./src/assets/icons/icon-ocean.png"
+          },
+          "sunset": {
+            "image": "./src/assets/icons/icon-sunset.png"
+          }
+        }
+      ],
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
 }
